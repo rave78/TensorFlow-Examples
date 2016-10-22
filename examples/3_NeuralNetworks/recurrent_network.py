@@ -1,5 +1,5 @@
 '''
-A Reccurent Neural Network (LSTM) implementation example using TensorFlow library.
+A Recurrent Neural Network (LSTM) implementation example using TensorFlow library.
 This example is using the MNIST database of handwritten digits (http://yann.lecun.com/exdb/mnist/)
 Long Short Term Memory paper: http://deeplearning.cs.cmu.edu/pdfs/Hochreiter97_lstm.pdf
 
@@ -7,16 +7,18 @@ Author: Aymeric Damien
 Project: https://github.com/aymericdamien/TensorFlow-Examples/
 '''
 
+from __future__ import print_function
+
 import tensorflow as tf
-from tensorflow.models.rnn import rnn, rnn_cell
+from tensorflow.python.ops import rnn, rnn_cell
 import numpy as np
 
-# Import MINST data
+# Import MNIST data
 from tensorflow.examples.tutorials.mnist import input_data
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
 
 '''
-To classify images using a reccurent neural network, we consider every image
+To classify images using a recurrent neural network, we consider every image
 row as a sequence of pixels. Because MNIST image shape is 28*28px, we will then
 handle 28 sequences of 28 steps for every sample.
 '''
@@ -97,15 +99,15 @@ with tf.Session() as sess:
             acc = sess.run(accuracy, feed_dict={x: batch_x, y: batch_y})
             # Calculate batch loss
             loss = sess.run(cost, feed_dict={x: batch_x, y: batch_y})
-            print "Iter " + str(step*batch_size) + ", Minibatch Loss= " + \
+            print("Iter " + str(step*batch_size) + ", Minibatch Loss= " + \
                   "{:.6f}".format(loss) + ", Training Accuracy= " + \
-                  "{:.5f}".format(acc)
+                  "{:.5f}".format(acc))
         step += 1
-    print "Optimization Finished!"
+    print("Optimization Finished!")
 
     # Calculate accuracy for 128 mnist test images
     test_len = 128
     test_data = mnist.test.images[:test_len].reshape((-1, n_steps, n_input))
     test_label = mnist.test.labels[:test_len]
-    print "Testing Accuracy:", \
-        sess.run(accuracy, feed_dict={x: test_data, y: test_label})
+    print("Testing Accuracy:", \
+        sess.run(accuracy, feed_dict={x: test_data, y: test_label}))

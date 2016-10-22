@@ -7,9 +7,11 @@ Author: Aymeric Damien
 Project: https://github.com/aymericdamien/TensorFlow-Examples/
 '''
 
+from __future__ import print_function
+
 import tensorflow as tf
 
-# Import MINST data
+# Import MNIST data
 from tensorflow.examples.tutorials.mnist import input_data
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
 
@@ -119,14 +121,14 @@ with tf.Session() as sess:
             loss, acc = sess.run([cost, accuracy], feed_dict={x: batch_x,
                                                               y: batch_y,
                                                               keep_prob: 1.})
-            print "Iter " + str(step*batch_size) + ", Minibatch Loss= " + \
+            print("Iter " + str(step*batch_size) + ", Minibatch Loss= " + \
                   "{:.6f}".format(loss) + ", Training Accuracy= " + \
-                  "{:.5f}".format(acc)
+                  "{:.5f}".format(acc))
         step += 1
-    print "Optimization Finished!"
+    print("Optimization Finished!")
 
     # Calculate accuracy for 256 mnist test images
-    print "Testing Accuracy:", \
+    print("Testing Accuracy:", \
         sess.run(accuracy, feed_dict={x: mnist.test.images[:256],
                                       y: mnist.test.labels[:256],
-                                      keep_prob: 1.})
+                                      keep_prob: 1.}))

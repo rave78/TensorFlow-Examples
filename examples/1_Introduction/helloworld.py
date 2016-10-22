@@ -5,9 +5,11 @@ Author: Aymeric Damien
 Project: https://github.com/aymericdamien/TensorFlow-Examples/
 '''
 
+from __future__ import print_function
+
 import tensorflow as tf
 
-#Simple hello world using TensorFlow
+# Simple hello world using TensorFlow
 
 # Create a Constant op
 # The op is added as a node to the default graph.
@@ -20,4 +22,4 @@ hello = tf.constant('Hello, TensorFlow!')
 sess = tf.Session()
 
 # Run the op
-print sess.run(hello)
+print(sess.run(hello))

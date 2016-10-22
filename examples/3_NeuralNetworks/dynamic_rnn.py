@@ -1,5 +1,5 @@
 '''
-A Dynamic Reccurent Neural Network (LSTM) implementation example using
+A Dynamic Recurrent Neural Network (LSTM) implementation example using
 TensorFlow library. This example is using a toy dataset to classify linear
 sequences. The generated sequences have variable length.
 
@@ -8,6 +8,8 @@ Long Short Term Memory paper: http://deeplearning.cs.cmu.edu/pdfs/Hochreiter97_l
 Author: Aymeric Damien
 Project: https://github.com/aymericdamien/TensorFlow-Examples/
 '''
+
+from __future__ import print_function
 
 import tensorflow as tf
 import random
@@ -24,7 +26,7 @@ class ToySequenceData(object):
 
     NOTICE:
     We have to pad each sequence to reach 'max_seq_len' for TensorFlow
-    consistency (we cannot feed a numpy array with unconsistent
+    consistency (we cannot feed a numpy array with inconsistent
     dimensions). The dynamic calculation will then be perform thanks to
     'seqlen' attribute that records every actual sequence length.
     """
@@ -128,7 +130,7 @@ def dynamicRNN(x, seqlen, weights, biases):
                                 sequence_length=seqlen)
 
     # When performing dynamic calculation, we must retrieve the last
-    # dynamically computed output, i.e, if a sequence length is 10, we need
+    # dynamically computed output, i.e., if a sequence length is 10, we need
     # to retrieve the 10th output.
     # However TensorFlow doesn't support advanced indexing yet, so we build
     # a custom op that for each sample in batch size, get its length and
@@ -179,16 +181,16 @@ with tf.Session() as sess:
             # Calculate batch loss
             loss = sess.run(cost, feed_dict={x: batch_x, y: batch_y,
                                              seqlen: batch_seqlen})
-            print "Iter " + str(step*batch_size) + ", Minibatch Loss= " + \
+            print("Iter " + str(step*batch_size) + ", Minibatch Loss= " + \
                   "{:.6f}".format(loss) + ", Training Accuracy= " + \
-                  "{:.5f}".format(acc)
+                  "{:.5f}".format(acc))
         step += 1
-    print "Optimization Finished!"
+    print("Optimization Finished!")
 
     # Calculate accuracy
     test_data = testset.data
     test_label = testset.labels
     test_seqlen = testset.seqlen
-    print "Testing Accuracy:", \
+    print("Testing Accuracy:", \
         sess.run(accuracy, feed_dict={x: test_data, y: test_label,
-                                      seqlen: test_seqlen})
+                                      seqlen: test_seqlen}))
